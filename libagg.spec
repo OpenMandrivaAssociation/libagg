@@ -11,7 +11,6 @@ Group: 		System/Libraries
 License: 	AGG License
 URL: 		http://www.antigrain.com/
 Source:		agg-2.5.tar.bz2
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: autoconf2.5 
 %if %mdkversion <= 200600
 BuildRequires: X11-devel
