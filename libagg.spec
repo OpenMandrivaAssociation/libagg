@@ -4,7 +4,7 @@
 %define lib_name %mklibname agg 2
 
 Name: 		%{name}
-Summary: 	Anti-Grain Geometry is an Open Source, free of charge graphic library
+Summary: 	Open Source, free of charge graphic library
 Version: 	%{version}
 Release: 	%{release}
 Group: 		System/Libraries
