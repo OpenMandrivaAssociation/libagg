@@ -1,6 +1,6 @@
 %define name libagg
 %define version	2.5
-%define release %mkrel 2
+%define release %mkrel 4
 %define lib_name %mklibname agg 2
 
 Name: 		%{name}
