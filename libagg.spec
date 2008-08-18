@@ -1,7 +1,9 @@
 %define name libagg
 %define version	2.5
+%define major 2
 %define release %mkrel 4
-%define lib_name %mklibname agg 2
+%define lib_name %mklibname agg %{major}
+%define devel_name %mklibname agg -d
 
 Name: 		%{name}
 Summary: 	Open Source, free of charge graphic library
@@ -13,13 +15,9 @@ URL: 		http://www.antigrain.com/
 Source:		agg-2.5.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: autoconf2.5 
-%if %mdkversion <= 200600
-BuildRequires: X11-devel
-%else
 BuildRequires: libx11-devel
 BuildRequires:	freetype2-devel
 BuildRequires:	SDL-devel
-%endif
 
 %description
 Anti-Grain Geometry (AGG) is an Open Source, free of charge graphic library, 
@@ -37,13 +35,14 @@ Provides: %{name} = %{version}-%{release}
 This package contains the library needed to run programs dynamically
 linked with %{name}.
 
-%package -n %{lib_name}-devel
+%package -n %{devel_name}
 Summary: Headers for developing programs that will use %{name}
 Group: Development/C
 Requires: %{lib_name} = %{version}-%{release}
 Provides: agg-devel = %{version}-%{release}
+Obsoletes: libagg2-devel
 
-%description -n %{lib_name}-devel
+%description -n %{devel_name}
 This package contains the headers that programmers will need to develop
 applications which will use %{name}.
 
@@ -74,10 +73,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %_libdir/*.la
 %_libdir/*.a
-%_libdir/*.so.*
+%_libdir/*.so.%{major}*
 
 
-%files -n %{lib_name}-devel
+%files -n %{devel_name}
 %defattr(-,root,root)
 %dir %_includedir/agg2/
 %_includedir/agg2/*.h
