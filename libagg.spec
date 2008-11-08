@@ -1,23 +1,21 @@
-%define name libagg
-%define version	2.5
 %define major 2
-%define release %mkrel 5
 %define lib_name %mklibname agg %{major}
 %define devel_name %mklibname agg -d
 
-Name: 		%{name}
 Summary: 	Open Source, free of charge graphic library
-Version: 	%{version}
-Release: 	%{release}
+Name: 		libagg
+Version: 	2.5
+Release: 	%mkrel 5
 Group: 		System/Libraries
 License: 	AGG License
 URL: 		http://www.antigrain.com/
 Source:		agg-2.5.tar.bz2
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires: autoconf2.5 
-BuildRequires: libx11-devel
+Patch0:		agg-2.5-linkage_fix.diff
+BuildRequires:	autoconf2.5 
+BuildRequires:	libx11-devel
 BuildRequires:	freetype2-devel
 BuildRequires:	SDL-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Anti-Grain Geometry (AGG) is an Open Source, free of charge graphic library, 
@@ -47,11 +45,18 @@ This package contains the headers that programmers will need to develop
 applications which will use %{name}.
 
 %prep
+
 %setup -q -n agg-2.5
+%patch0 -p1
 
 %build
 sh ./autogen.sh
 %configure2_5x --datadir=%{_datadir}
+
+# nuke -Wl,--no-undefined in just two places
+perl -pi -e "s|-Wl,--no-undefined||g" src/platform/X11/Makefile
+perl -pi -e "s|-Wl,--no-undefined||g" src/platform/sdl/Makefile
+
 %make
 
 %install
