@@ -5,13 +5,12 @@
 Summary: 	Open Source, free of charge graphic library
 Name: 		libagg
 Version: 	2.5
-Release: 	%mkrel 6
+Release: 	%mkrel 7
 Group: 		System/Libraries
 License: 	AGG License
 URL: 		http://www.antigrain.com/
 Source:		agg-2.5.tar.bz2
 Patch0:		agg-2.5-linkage_fix.diff
-BuildRequires:	autoconf2.5 
 BuildRequires:	libx11-devel
 BuildRequires:	freetype2-devel
 BuildRequires:	SDL-devel
@@ -60,11 +59,11 @@ perl -pi -e "s|-Wl,--no-undefined||g" src/platform/sdl/Makefile
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall
 
 %clean 
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post -n %{lib_name} -p /sbin/ldconfig
