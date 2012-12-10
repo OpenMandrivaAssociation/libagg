@@ -9,12 +9,12 @@ Release: 	%mkrel 7
 Group: 		System/Libraries
 License: 	AGG License
 URL: 		http://www.antigrain.com/
-Source:		agg-2.5.tar.bz2
+Source0:		agg-2.5.tar.bz2
 Patch0:		agg-2.5-linkage_fix.diff
+Patch1:		agg-2.5-deansification.diff
 BuildRequires:	libx11-devel
 BuildRequires:	freetype2-devel
 BuildRequires:	SDL-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Anti-Grain Geometry (AGG) is an Open Source, free of charge graphic library, 
@@ -47,8 +47,10 @@ applications which will use %{name}.
 
 %setup -q -n agg-2.5
 %patch0 -p1
+%patch1 -p1 -b .deansi
 
 %build
+#autoreconf -ivf
 sh ./autogen.sh
 %configure2_5x --datadir=%{_datadir}
 
@@ -62,9 +64,6 @@ perl -pi -e "s|-Wl,--no-undefined||g" src/platform/sdl/Makefile
 rm -rf %{buildroot}
 %makeinstall
 
-%clean 
-rm -rf %{buildroot}
-
 %if %mdkversion < 200900
 %post -n %{lib_name} -p /sbin/ldconfig
 %endif
@@ -75,7 +74,6 @@ rm -rf %{buildroot}
 
 %files -n %{lib_name}
 %defattr(-,root,root)
-%_libdir/*.la
 %_libdir/*.a
 %_libdir/*.so.%{major}*
 
@@ -96,4 +94,69 @@ rm -rf %{buildroot}
 %dir %_libdir/pkgconfig/
 %_libdir/pkgconfig/libagg.pc
 
+
+
+
+%changelog
+* Sun Aug 15 2010 Emmanuel Andry <eandry@mandriva.org> 2.5-7mdv2011.0
++ Revision: 570188
+- Rebuild
+
+* Fri Sep 11 2009 Thierry Vignaud <tv@mandriva.org> 2.5-6mdv2010.0
++ Revision: 438513
+- rebuild
+
+* Sat Nov 08 2008 Oden Eriksson <oeriksson@mandriva.com> 2.5-5mdv2009.1
++ Revision: 301072
+- fix linkage
+- rebuilt against new libxcb
+
+  + Emmanuel Andry <eandry@mandriva.org>
+    - apply devel policy
+    - remove old conditional
+    - check major
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Mon Feb 18 2008 Thierry Vignaud <tv@mandriva.org> 2.5-2mdv2008.1
++ Revision: 170940
+- rebuild
+- fix "foobar is blabla" summary (=> "blabla") so that it looks nice in rpmdrake
+
+* Fri Dec 21 2007 Olivier Blin <oblin@mandriva.com> 2.5-1mdv2008.1
++ Revision: 136546
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+    - fix summary-ended-with-dot
+
+
+* Sun Mar 04 2007 Emmanuel Andry <eandry@mandriva.org> 2.5-1mdv2007.0
++ Revision: 132707
+- fix datadir path
+- New version 2.5
+- Import libagg
+
+* Sat Jul 22 2006 Laurent MONTEL <lmontel@mandriva.com> 2.3-6
+- Rebuild
+
+* Mon Jun 19 2006 Laurent MONTEL <lmontel@mandriva.com> 2.3-5
+- Fix missing build requires
+
+* Thu May 18 2006 Laurent MONTEL <lmontel@mandriva.com> 2.3-4mdk
+- Rebuild
+
+* Mon Jan 23 2006 Laurent MONTEL <lmontel@mandriva.com> 2.3-3mdk
+- Add missing build requires
+
+* Fri Dec 02 2005 Laurent MONTEL <lmontel@mandriva.com> 2.3-2mdk
+- Fix provides
+
+* Tue Nov 22 2005 Laurent MONTEL <lmontel@mandriva.com> 2.3-1mdk
+- initial spec file created
 
