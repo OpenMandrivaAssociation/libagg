@@ -5,11 +5,11 @@
 Summary: 	Open Source, free of charge graphic library
 Name: 		libagg
 Version: 	2.5
-Release: 	%mkrel 7
+Release: 	8
 Group: 		System/Libraries
 License: 	AGG License
 URL: 		http://www.antigrain.com/
-Source0:		agg-2.5.tar.bz2
+Source0:	agg-2.5.tar.bz2
 Patch0:		agg-2.5-linkage_fix.diff
 Patch1:		agg-2.5-deansification.diff
 BuildRequires:	libx11-devel
@@ -73,13 +73,11 @@ rm -rf %{buildroot}
 %endif
 
 %files -n %{lib_name}
-%defattr(-,root,root)
 %_libdir/*.a
 %_libdir/*.so.%{major}*
 
 
 %files -n %{devel_name}
-%defattr(-,root,root)
 %dir %_includedir/agg2/
 %_includedir/agg2/*.h
 %dir %_includedir/agg2/ctrl/
@@ -94,10 +92,10 @@ rm -rf %{buildroot}
 %dir %_libdir/pkgconfig/
 %_libdir/pkgconfig/libagg.pc
 
-
-
-
 %changelog
+* Thu Feb 14 2013 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 2.5-8
+- Spec cleanup and rebuild
+
 * Sun Aug 15 2010 Emmanuel Andry <eandry@mandriva.org> 2.5-7mdv2011.0
 + Revision: 570188
 - Rebuild
