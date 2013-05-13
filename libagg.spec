@@ -12,7 +12,7 @@ URL: 		http://www.antigrain.com/
 Source0:	agg-2.5.tar.bz2
 Patch0:		agg-2.5-linkage_fix.diff
 Patch1:		agg-2.5-deansification.diff
-BuildRequires:	libx11-devel
+BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	SDL-devel
 
