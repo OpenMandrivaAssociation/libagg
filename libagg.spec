@@ -5,7 +5,7 @@
 Summary: 	Open Source, free of charge graphic library
 Name: 		libagg
 Version: 	2.5
-Release: 	8
+Release: 	9
 Group: 		System/Libraries
 License: 	AGG License
 URL: 		http://www.antigrain.com/
