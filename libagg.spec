@@ -1,9 +1,13 @@
+## MD rename src pkg dir to agg
 %define major	2
-%define libname %mklibname agg %{major}
-%define devname %mklibname agg -d
+%define libname %mklibname %{name} %{major}
+%define libfft	%mklibname aggfontfreetype %{major}
+%define libX11	%mklibname aggplatformX11_ %{major}
+%define libsdl	%mklibname aggplatformsdl %{major}
+%define devname %mklibname %{name} -d
 
 Summary:	Open Source, free of charge graphic library
-Name:		libagg
+Name:		agg
 Version:	2.5
 Release:	10
 Group:		System/Libraries
@@ -29,21 +33,51 @@ Group:		System/Libraries
 Provides:	%{name} = %{version}-%{release}
 
 %description -n %{libname}
-This package contains the library needed to run programs dynamically
+This package contains a library needed to run programs dynamically
+linked with %{name}.
+
+%package -n %{libfft}
+Summary:	Main library for %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}agg2 < 2.5-10
+
+%description -n %{libfft}
+This package contains a library needed to run programs dynamically
+linked with %{name}.
+
+%package -n %{libX11}
+Summary:	Main library for %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}agg2 < 2.5-10
+
+%description -n %{libX11}
+This package contains a library needed to run programs dynamically
+linked with %{name}.
+
+%package -n %{libsdl}
+Summary:	Main library for %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}agg2 < 2.5-10
+
+%description -n %{libsdl}
+This package contains a library needed to run programs dynamically
 linked with %{name}.
 
 %package -n %{devname}
 Summary:	Headers for developing programs that will use %{name}
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
-Provides:	agg-devel = %{version}-%{release}
+Requires:	%{libfft} = %{version}-%{release}
+Requires:	%{libX11} = %{version}-%{release}
+Requires:	%{libsdl} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n %{devname}
 This package contains the headers that programmers will need to develop
 applications which will use %{name}.
 
 %prep
-%setup -qn agg-2.5
+%setup -q
 %apply_patches
 
 sh ./autogen.sh
@@ -64,6 +98,15 @@ sed -i -e "s|-Wl,--no-undefined||g" src/platform/sdl/Makefile
 
 %files -n %{libname}
 %{_libdir}/libagg.so.%{major}*
+
+%files -n %{libfft}
+%{_libdir}/libaggfontfreetype.so.%{major}*
+
+%files -n %{libX11}
+%{_libdir}/libaggplatformX11.so.%{major}*
+
+%files -n %{libsdl}
+%{_libdir}/libaggplatformsdl.so.%{major}*
 
 %files -n %{devname}
 %dir %{_includedir}/agg2/
