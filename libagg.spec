@@ -9,7 +9,7 @@
 Summary:	Open Source, free of charge graphic library
 Name:		agg
 Version:	2.5
-Release:	17
+Release:	18
 License:	AGG License
 Group:		System/Libraries
 Url:		http://www.antigrain.com/
@@ -113,6 +113,8 @@ applications which will use %{name}.
 sh ./autogen.sh
 
 %build
+export CC=gcc
+export CXX=g++
 %configure2_5x \
 	--disable-static
 
