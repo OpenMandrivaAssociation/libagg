@@ -9,7 +9,7 @@
 Summary:	Open Source, free of charge graphic library
 Name:		agg
 Version:	2.5
-Release:	18
+Release:	19
 License:	AGG License
 Group:		System/Libraries
 Url:		http://www.antigrain.com/
@@ -17,6 +17,7 @@ Source0:	agg-2.5.tar.bz2
 Patch0:		agg-2.5-linkage_fix.diff
 Patch1:		agg-2.5-deansification.diff
 Patch2:		agg-2.5-no-rpath.patch
+Patch3:		agg-2.5-clang.patch
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(x11)
