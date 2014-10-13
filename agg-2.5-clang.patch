@@ -9,3 +9,14 @@
          typedef AlphaMask             alpha_mask_type;
          typedef base_type::cover_type cover_type;
          typedef base_type::coord_type coord_type;
+--- agg-2.5/include/agg_renderer_outline_aa.h.orig	2014-10-13 09:53:37.144067798 +0100
++++ agg-2.5/include/agg_renderer_outline_aa.h	2014-10-13 10:09:02.566239610 +0100
+@@ -1375,7 +1375,7 @@
+         //---------------------------------------------------------------------
+         void profile(const line_profile_aa& prof) { m_profile = &prof; }
+         const line_profile_aa& profile() const { return *m_profile; }
+-        line_profile_aa& profile() { return *m_profile; }
++        const line_profile_aa& profile() { return *m_profile; }
+ 
+         //---------------------------------------------------------------------
+         int subpixel_width() const { return m_profile->subpixel_width(); }

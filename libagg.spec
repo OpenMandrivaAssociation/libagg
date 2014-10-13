@@ -9,7 +9,7 @@
 Summary:	Open Source, free of charge graphic library
 Name:		agg
 Version:	2.5
-Release:	19
+Release:	20
 License:	AGG License
 Group:		System/Libraries
 Url:		http://www.antigrain.com/
