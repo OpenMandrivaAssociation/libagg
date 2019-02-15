@@ -1,3 +1,5 @@
+%global _disable_rebuild_configure 1
+
 ## MD rename src pkg dir to agg
 %define major 2
 %define libname %mklibname %{name} %{major}
@@ -114,10 +116,8 @@ applications which will use %{name}.
 sh ./autogen.sh
 
 %build
-export CC=gcc
-export CXX=g++
-%configure2_5x \
-	--disable-static
+%configure \
+	--disable-examples
 
 # nuke -Wl,--no-undefined in just two places
 sed -i -e "s|-Wl,--no-undefined||g" src/platform/X11/Makefile
