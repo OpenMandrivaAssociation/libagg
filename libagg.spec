@@ -111,7 +111,7 @@ applications which will use %{name}.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 sh ./autogen.sh
 
