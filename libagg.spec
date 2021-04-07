@@ -10,16 +10,15 @@
 
 Summary:	Open Source, free of charge graphic library
 Name:		agg
-Version:	2.5
-Release:	23
-License:	AGG License
+Version:	2.8.2
+Release:	1
+License:	MIT
 Group:		System/Libraries
-Url:		http://www.antigrain.com/
-Source0:	agg-2.5.tar.bz2
-Patch0:		agg-2.5-linkage_fix.diff
-Patch1:		agg-2.5-deansification.diff
+Url:		https://github.com/cppfw/agg
+# Pre-fork Url:		http://www.antigrain.com/
+Source0:	https://github.com/cppfw/agg/archive/refs/tags/%{version}.tar.gz
+Patch0:		https://abf.io/import/agg/raw/rosa2019.1/agg-2.8.1-linkage_fix.diff
 Patch2:		agg-2.5-no-rpath.patch
-Patch3:		agg-2.5-clang.patch
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(x11)
@@ -112,10 +111,9 @@ applications which will use %{name}.
 %prep
 %setup -q
 %autopatch -p1
-
+cd src/agg
 sh ./autogen.sh
 
-%build
 %configure \
 	--disable-examples
 
@@ -123,8 +121,9 @@ sh ./autogen.sh
 sed -i -e "s|-Wl,--no-undefined||g" src/platform/X11/Makefile
 sed -i -e "s|-Wl,--no-undefined||g" src/platform/sdl/Makefile
 
-%make
+%build
+%make_build -C src/agg
 
 %install
-%makeinstall_std
+%make_install -C src/agg
 
