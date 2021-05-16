@@ -1,0 +1,36 @@
+diff -ruN a/src/agg/font_freetype/Makefile.am b/src/agg/font_freetype/Makefile.am
+--- a/src/agg/font_freetype/Makefile.am	2020-12-30 07:53:25.000000000 +0900
++++ b/src/agg/font_freetype/Makefile.am	2021-01-15 03:50:39.917684393 +0900
+@@ -4,7 +4,7 @@
+ agginclude_HEADERS = agg_font_freetype.h
+ lib_LTLIBRARIES = libaggfontfreetype.la
+ 
+-libaggfontfreetype_la_LDFLAGS = -version-info @AGG_LIB_VERSION@ @FREETYPE_LIBS@ 
++libaggfontfreetype_la_LDFLAGS = -version-info @AGG_LIB_VERSION@ @FREETYPE_LIBS@ ../src/libagg.la
+ libaggfontfreetype_la_SOURCES = agg_font_freetype.cpp
+ libaggfontfreetype_la_CXXFLAGS = -I$(top_srcdir)/include @FREETYPE_CFLAGS@ 
+ endif
+diff -ruN a/src/agg/src/platform/sdl/Makefile.am b/src/agg/src/platform/sdl/Makefile.am
+--- a/src/agg/src/platform/sdl/Makefile.am	2020-12-30 07:53:25.000000000 +0900
++++ b/src/agg/src/platform/sdl/Makefile.am	2021-01-15 03:51:46.606685474 +0900
+@@ -2,7 +2,7 @@
+ 
+ lib_LTLIBRARIES = libaggplatformsdl.la
+ 
+-libaggplatformsdl_la_LDFLAGS = -version-info @AGG_LIB_VERSION@
++libaggplatformsdl_la_LDFLAGS = -version-info @AGG_LIB_VERSION@ ../../libagg.la
+ libaggplatformsdl_la_SOURCES = agg_platform_support.cpp
+ libaggplatformsdl_la_CXXFLAGS = -I$(top_srcdir)/include @SDL_CFLAGS@
+ libaggplatformsdl_la_LIBADD = @SDL_LIBS@
+diff -ruN a/src/agg/src/platform/X11/Makefile.am b/src/agg/src/platform/X11/Makefile.am
+--- a/src/agg/src/platform/X11/Makefile.am	2020-12-30 07:53:25.000000000 +0900
++++ b/src/agg/src/platform/X11/Makefile.am	2021-01-15 03:51:34.675685280 +0900
+@@ -1,7 +1,7 @@
+ if ENABLE_X11
+ lib_LTLIBRARIES = libaggplatformX11.la
+ 
+-libaggplatformX11_la_LDFLAGS = -version-info @AGG_LIB_VERSION@
++libaggplatformX11_la_LDFLAGS = -version-info @AGG_LIB_VERSION@ ../../libagg.la
+ libaggplatformX11_la_SOURCES = agg_platform_support.cpp
+ libaggplatformX11_la_CXXFLAGS =  -I$(top_srcdir)/include @x_includes@
+ libaggplatformX11_la_LIBADD = -lX11
