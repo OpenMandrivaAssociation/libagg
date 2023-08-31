@@ -10,7 +10,7 @@
 
 Summary:	Open Source, free of charge graphic library
 Name:		agg
-Version:	2.8.21
+Version:	2.8.22
 Release:	1
 License:	MIT
 Group:		System/Libraries
