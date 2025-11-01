@@ -2,15 +2,19 @@
 
 ## MD rename src pkg dir to agg
 %define major 2
-%define libname %mklibname %{name} %{major}
-%define libfft %mklibname aggfontfreetype %{major}
-%define libX11 %mklibname aggplatformX11_ %{major}
-%define libsdl %mklibname aggplatformsdl %{major}
+%define libname %mklibname %{name}
+%define libfft %mklibname aggfontfreetype
+%define libX11 %mklibname aggplatformX11
+%define libsdl %mklibname aggplatformsdl
+%define oldlibname %mklibname %{name} 2
+%define oldlibfft %mklibname aggfontfreetype 2
+%define oldlibX11 %mklibname aggplatformX11_ 2
+%define oldlibsdl %mklibname aggplatformsdl 2
 %define devname %mklibname %{name} -d
 
 Summary:	Open Source, free of charge graphic library
 Name:		agg
-Version:	2.8.25
+Version:	2.8.38
 Release:	1
 License:	MIT
 Group:		System/Libraries
@@ -18,6 +22,7 @@ Url:		https://github.com/cppfw/agg
 # Pre-fork Url:		http://www.antigrain.com/
 Source0:	https://github.com/cppfw/agg/archive/refs/tags/%{version}.tar.gz
 Patch0:		https://abf.io/import/agg/raw/rosa2019.1/agg-2.8.1-linkage_fix.diff
+Patch1:		agg-2.8.38-compile.patch
 Patch2:		agg-2.5-no-rpath.patch
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(sdl)
@@ -35,6 +40,8 @@ produces pixel images in memory from some vectorial data.
 %package -n %{libname}
 Summary:	Shared library for %{name}
 Group:		System/Libraries
+# Renamed after 6.0 2025-11-01
+%rename %{oldlibname}
 
 %description -n %{libname}
 This package contains a library needed to run programs dynamically
@@ -49,6 +56,8 @@ linked with %{name}.
 Summary:	Shared library for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}agg2 < 2.5-10
+# Renamed after 6.0 2025-11-01
+%rename %{oldlibfft}
 
 %description -n %{libfft}
 This package contains a library needed to run programs dynamically
@@ -63,6 +72,8 @@ linked with %{name}.
 Summary:	Shared library for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}agg2 < 2.5-10
+# Renamed after 6.0 2025-11-01
+%rename %{oldlibsdl}
 
 %description -n %{libsdl}
 This package contains a library needed to run programs dynamically
@@ -77,6 +88,8 @@ linked with %{name}.
 Summary:	Shared library for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}agg2 < 2.5-10
+# Renamed after 6.0 2025-11-01
+%rename %{oldlibX11}
 
 %description -n %{libX11}
 This package contains a library needed to run programs dynamically
@@ -112,8 +125,10 @@ applications which will use %{name}.
 %setup -q
 %autopatch -p1
 cd src/agg
+echo 'SUBDIRS = agg' >include/Makefile.am
 sh ./autogen.sh
 
+export CPPFLAGS="%{optflags} -I$(pwd)/include/agg"
 %configure \
 	--disable-examples
 

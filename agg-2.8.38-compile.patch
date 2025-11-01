@@ -1,0 +1,30 @@
+diff -up agg-2.8.38/src/agg/configure.ac.omv~ agg-2.8.38/src/agg/configure.ac
+--- agg-2.8.38/src/agg/configure.ac.omv~	2025-11-01 22:09:48.217054062 +0100
++++ agg-2.8.38/src/agg/configure.ac	2025-11-01 22:09:48.220604040 +0100
+@@ -157,10 +157,11 @@ AC_OUTPUT(
+    src/platform/win32/Makefile
+    src/platform/BeOS/Makefile
+    src/platform/AmigaOS/Makefile
+    include/Makefile
+-   include/ctrl/Makefile
+-   include/util/Makefile
+-   include/platform/Makefile
++   include/agg/Makefile
++   include/agg/ctrl/Makefile
++   include/agg/util/Makefile
++   include/agg/platform/Makefile
+    examples/Makefile
+ ) 
+ 
+diff -up agg-2.8.38/src/agg/font_freetype/agg_font_freetype.cpp.omv~ agg-2.8.38/src/agg/font_freetype/agg_font_freetype.cpp
+--- agg-2.8.38/src/agg/font_freetype/agg_font_freetype.cpp.omv~	2025-11-01 22:12:51.866756666 +0100
++++ agg-2.8.38/src/agg/font_freetype/agg_font_freetype.cpp	2025-11-01 22:13:23.515468796 +0100
+@@ -179,7 +179,7 @@ namespace agg
+             v_control = v_start;
+ 
+             point = outline.points + first;
+-            tags  = outline.tags  + first;
++            tags  = (char*)outline.tags  + first;
+             tag   = FT_CURVE_TAG(tags[0]);
+ 
+             // A contour cannot start with a cubic control point!
