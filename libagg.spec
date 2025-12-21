@@ -24,6 +24,11 @@ Source0:	https://github.com/cppfw/agg/archive/refs/tags/%{version}.tar.gz
 Patch0:		https://abf.io/import/agg/raw/rosa2019.1/agg-2.8.1-linkage_fix.diff
 Patch1:		agg-2.8.38-compile.patch
 Patch2:		agg-2.5-no-rpath.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(sdl)
 BuildRequires:	pkgconfig(x11)
